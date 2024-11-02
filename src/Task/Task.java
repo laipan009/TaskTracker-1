@@ -1,5 +1,8 @@
 package Task;
 
+import manager.InMemoryHistoryManager;
+import manager.InMemoryTaskManager;
+
 public class Task {
     private String name;
     private String description;
@@ -10,6 +13,7 @@ public class Task {
         this.name = name;
         this.description = description;
         status = TaskStatus.NEW;
+        ID = InMemoryTaskManager.generateID();
     }
 
     public String getName() {
