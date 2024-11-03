@@ -17,16 +17,21 @@ public class Main {
 
         manager.addTask(task1);
         manager.addTask(task2);
+        manager.addEpic(epic);
         manager.addSubTask(subTask1);
         manager.addSubTask(subTask2);
-        manager.addEpic(epic);
 
-        for (int i = 0; i < 10; i++) {
-            manager.getTask(task1.getID());
-        }
-        for (int i = 0; i < 3; i++) {
-            manager.getTask(task2.getID());
-        }
+        manager.getTask(task1.getID());
+        manager.getTask(task1.getID());
+        manager.getTask(task2.getID());
+        manager.getEpic(epic.getID());
+        manager.getSubtask(subTask1.getID());
+        manager.getSubtask(subTask2.getID());
+
+        System.out.println(manager.getHistory());
+
+        manager.removeEpic(epic.getID());
+
         System.out.println(manager.getHistory());
     }
 }
