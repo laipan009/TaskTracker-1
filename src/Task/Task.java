@@ -16,6 +16,13 @@ public class Task {
         ID = InMemoryTaskManager.generateID();
     }
 
+    public Task(String name, String description, long ID, String status) {
+        this.name = name;
+        this.description = description;
+        this.ID = ID;
+        setStatus(status);
+    }
+
     public String getName() {
         return name;
     }
@@ -40,6 +47,10 @@ public class Task {
         this.ID = ID;
     }
 
+    public TaskType getType() {
+        return TaskType.TASK;
+    }
+
     public TaskStatus getStatus() {
         return status;
     }
@@ -48,9 +59,23 @@ public class Task {
         this.status = status;
     }
 
+    public void setStatus(String str) {
+        switch (str) {
+            case "NEW" :
+                status = TaskStatus.NEW;
+                break;
+            case "IN_PROGRESS":
+                status = TaskStatus.IN_PROGRESS;
+                break;
+            case "DONE" :
+                status = TaskStatus.DONE;
+                break;
+        }
+    }
+
     @Override
     public String toString() {
         return "name = "+ name+" | "+
-                "description = "+description+"\n";
+                "description = "+description+ " | ID "+ID +"\n";
     }
 }

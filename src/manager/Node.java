@@ -2,7 +2,7 @@ package manager;
 
 import Task.Task;
 
-public class Node {
+public class Node  {
   private   Task task;
   private   Node next;
   private   Node past;

@@ -8,29 +8,41 @@ import java.util.List;
 import java.util.Map;
 
 public class InMemoryTaskManager implements TaskManager {
-    private HistoryManager historyManager = Managers.getDefaultHistory();
-    static long ID = Long.MIN_VALUE;
-    private final Map<Long, Task> tasks = new HashMap<>();
-    private final Map<Long, SubTask> subTasks = new HashMap<>();
-    private final Map<Long, Epic> epics = new HashMap<>();
+    public HistoryManager historyManager = Managers.getDefaultHistory();
+    static long ID = 1;
+    private  Map<Long, Task> tasks = new HashMap<>();
+    private  Map<Long, SubTask> subTasks = new HashMap<>();
+    private  Map<Long, Epic> epics = new HashMap<>();
 
     public static long generateID() {
         return ID++;
     }
 
+    public void setTasks(Map<Long, Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public void setSubTasks(Map<Long, SubTask> subTasks) {
+        this.subTasks = subTasks;
+    }
+
+    public void setEpics(Map<Long, Epic> epics) {
+        this.epics = epics;
+    }
+
     @Override
     public List<Task> getTasks() {
-        return new ArrayList<Task>(tasks.values());
+        return new ArrayList<>(tasks.values());
     }
 
     @Override
     public List<SubTask> getSubTasks() {
-        return new ArrayList<SubTask>(subTasks.values());
+        return new ArrayList<>(subTasks.values());
     }
 
     @Override
     public List<Epic> getEpics() {
-        return new ArrayList<Epic>(epics.values());
+        return new ArrayList<>(epics.values());
     }
 
     @Override
@@ -177,4 +189,9 @@ public class InMemoryTaskManager implements TaskManager {
     public List<Task> getHistory() {
         return historyManager.getHistory();
     }
+
+    public void addToHistory(Task task) {
+        historyManager.add(task);
+    }
+
 }

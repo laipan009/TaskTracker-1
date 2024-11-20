@@ -9,14 +9,23 @@ public class Epic extends Task {
     public Epic (String name, String description) {
         super(name,description);
     }
+
+    public Epic(String name, String description, long ID, String status) {
+        super(name, description, ID, status);
+    }
+
     @Override
     public String toString() {
-        return "name = "+ super.getName()+" | "+
-                "description = "+super.getDescription()+"\n";
+        return super.toString();
     }
 
     public void addSubTask(SubTask subTask) {
         subtaskId.add(subTask.getID());
+    }
+
+    @Override
+    public TaskType getType() {
+        return TaskType.EPIC;
     }
 
     public List<Long> getSubtaskId() {
