@@ -20,11 +20,11 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         Map<Long, Epic> epics = new HashMap<>();
 
         try (Reader reader = new FileReader(file);
-        BufferedReader bufferedReader = new BufferedReader(reader)) {
+        BufferedReader bufferedReader = new BufferedReader(reader)) { // вынесы логику метода на пару новых методов, например парсинг объекта из CSV в отдельный, восстановление объектов из строк, восстановление истпории и тд. ТАк лечге будет тебе самому же реализовать, протестироваить. Один метод - одна задача внутри решается, одна ответственность. 
             bufferedReader.readLine();
             while (bufferedReader.ready()) {
                 String line = bufferedReader.readLine();
-                String[] p = line.split(",");
+                String[] p = line.split(","); // лучше назвать попонятнее, как понимаю это аттрибуты Task в массиве, можно taskAttributesArray
                 if (line.isBlank())
                     continue;
                 if (!(p[1].equals(TaskType.TASK.toString()) || p[1].equals(TaskType.SUBTASK.toString()) || p[1].equals(TaskType.EPIC.toString()))) {
@@ -64,7 +64,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             super.setEpics(epics);
             super.setSubTasks(subTasks);
             super.setTasks(tasks);
-        } catch (IOException e) {
+        } catch (IOException e) { // хорош =)
             StackTraceElement[] elements = e.getStackTrace();
             System.out.println("Произошла ошибка при чтение файла !"+elements[elements.length-1].getLineNumber());
         }
@@ -73,7 +73,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     private void save() {
      try (Writer writer = new FileWriter(file)) {
          writer.write(ObjectToStringOfCSV());
-     } catch (IOException e) {
+     } catch (IOException e) {  // хорош =)
          StackTraceElement[] stackTraceElements =e.getStackTrace();
          StackTraceElement element = stackTraceElements[stackTraceElements.length-1];
          System.out.printf("Произошла ошибка при записи файла! класс %s строка %d\n",element.getClassName(),
