@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 
-public class FileBackedTasksManager extends InMemoryTaskManager {
+public class FileBackedTasksManager extends InMemoryTaskManager { 
     private File file ;
 
-    public FileBackedTasksManager(String path) {
+    public FileBackedTasksManager(String path) { // разбей этот метод на несколько, слишком много логики. Например, парсинг из CSV в объект в отдельный метод, восстановление объектов из массива в отдельный, восстановление истории в отдельный и т.д. Так будет проще самому понять, реализовать и протестировать.
         file = new File(path);
 
         Map<Long, Task> tasks = new HashMap<>();
@@ -24,7 +24,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             bufferedReader.readLine();
             while (bufferedReader.ready()) {
                 String line = bufferedReader.readLine();
-                String[] p = line.split(",");
+                String[] p = line.split(","); // стоит подобрать говорящее и более информативное название как я понял это атрибуты Task в массиве, можно taskAttributesArray
                 if (line.isBlank())
                     continue;
                 if (!(p[1].equals(TaskType.TASK.toString()) || p[1].equals(TaskType.SUBTASK.toString()) || p[1].equals(TaskType.EPIC.toString()))) {
@@ -64,7 +64,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             super.setEpics(epics);
             super.setSubTasks(subTasks);
             super.setTasks(tasks);
-        } catch (IOException e) {
+        } catch (IOException e) { // хорош =)
             StackTraceElement[] elements = e.getStackTrace();
             System.out.println("Произошла ошибка при чтение файла !"+elements[elements.length-1].getLineNumber());
         }
@@ -73,7 +73,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     private void save() {
      try (Writer writer = new FileWriter(file)) {
          writer.write(ObjectToStringOfCSV());
-     } catch (IOException e) {
+     } catch (IOException e) { // хорош =)
          StackTraceElement[] stackTraceElements =e.getStackTrace();
          StackTraceElement element = stackTraceElements[stackTraceElements.length-1];
          System.out.printf("Произошла ошибка при записи файла! класс %s строка %d\n",element.getClassName(),
